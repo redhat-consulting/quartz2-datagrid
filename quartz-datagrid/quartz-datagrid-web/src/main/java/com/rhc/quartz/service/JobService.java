@@ -46,8 +46,7 @@ public class JobService {
 	    	LOG.info("Scheduling job #" + jobRecord.getId());
 	    	schedulerContainer.getScheduler().scheduleJob(jobDetail, trigger);
 		} catch (SchedulerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.error("Could not schedule job #" + jobRecord.getId(), e);
 		}
 	}
 	
