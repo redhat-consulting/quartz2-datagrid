@@ -43,7 +43,7 @@
 							*
 						</Import-Package>
 						<Export-Package>
-							${project.groupId}.infinispan
+							${project.groupId}.infinispan;version=${project.version};-noimport:=true
 						</Export-Package>
 						<Service-Component>*</Service-Component>
 					</instructions>
