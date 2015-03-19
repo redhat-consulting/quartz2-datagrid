@@ -5,8 +5,9 @@
 
   <parent>
   	<groupId>com.rhc.quartz</groupId>
-  	<artifactId>quartz-datagrid</artifactId>
+  	<artifactId>quartz-datagrid-parent</artifactId>
   	<version>1.0.0-SNAPSHOT</version>
+  	<relativePath>../quartz-datagrid-parent</relativePath>
   </parent>
 
   <artifactId>quartz-example</artifactId>
@@ -35,8 +36,7 @@
     </dependency>
     <dependency>
       <groupId>com.rhc.quartz</groupId>
-      <artifactId>datagrid-jobstore</artifactId>
-      <version>${project.version}</version>
+      <artifactId>quartz-datagrid-jobstore</artifactId>
     </dependency>
   </dependencies>
 

@@ -7,39 +7,74 @@
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>quartz-datagrid</name>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <javaee.version>6.0</javaee.version>
-    <slf4j.version>1.7.2</slf4j.version>
-    <quartz.version>2.2.1</quartz.version>
-    <infinispan.version>7.1.0.Final</infinispan.version>
-  </properties>
-  <dependencyManagement>
-    <dependencies>
-    <dependency>
-      <groupId>org.infinispan</groupId>
-      <artifactId>infinispan-core</artifactId>
-      <version>${infinispan.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>javax</groupId>
-      <artifactId>javaee-api</artifactId>
-      <version>${javaee.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.quartz-scheduler</groupId>
-      <artifactId>quartz</artifactId>
-      <version>${quartz.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>${slf4j.version}</version>
-    </dependency>
-    </dependencies>
-  </dependencyManagement>
+
+  <build>
+	<plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.0</version>
+			<configuration>
+				<source>${version.jdk.min}</source>
+				<target>${version.jdk.min}</target>
+			</configuration>
+		</plugin>
+	</plugins>
+  </build>
+  
+	 <repositories>
+		<repository>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>release.fusesource.org</id>
+			<name>FuseSource Release Repository</name>
+			<url>http://repo.fusesource.com/nexus/content/repositories/releases/</url>
+		</repository>
+		<repository>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<id>snapshot.fusesource.org</id>
+			<name>FuseSource Snapshot Repository</name>
+			<url>http://repo.fusesource.com/nexus/content/repositories/snapshots/</url>
+		</repository>
+	</repositories>
+	
+	<pluginRepositories>
+		<pluginRepository>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>release.fusesource.org</id>
+			<name>FuseSource Release Repository</name>
+			<url>http://repo.fusesource.com/nexus/content/repositories/releases/</url>
+		</pluginRepository>
+		<pluginRepository>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<id>snapshot.fusesource.org</id>
+			<name>FuseSource Snapshot Repository</name>
+			<url>http://repo.fusesource.com/nexus/content/repositories/snapshots/</url>
+		</pluginRepository>
+	</pluginRepositories>
+  
+  
   <modules>
+    <module>quartz-datagrid-parent</module>
   	<module>quartz-datagrid-jobstore</module>
   	<module>quartz-datagrid-web</module>
   </modules>
