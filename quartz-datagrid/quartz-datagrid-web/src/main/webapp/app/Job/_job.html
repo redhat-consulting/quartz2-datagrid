@@ -1,0 +1,38 @@
+<div class="navbar" role="navigation"></div>
+
+<div data-ng-controller="jobController as partialCtrl">
+	<div class="container">
+		<div class="well">
+			<div class="row">
+				<div class="col-md-8">
+					<label for="message">Message</label> <input type="text"
+						class="form-control" id="message"
+						data-ng-model="partialCtrl.message" />
+				</div>
+				<div class="col-md-2">
+					<button type="submit" class="btn btn-primary"
+						data-ng-click="partialCtrl.create()">Add Job</button>
+				</div>
+			</div>
+
+
+
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">Message</div>
+			<div class="col-md-4">Fired</div>
+			<div class="col-md-4">
+				<button type="submit" class="btn btn-primary"
+					data-ng-click="partialCtrl.refresh()">Refresh</button>
+			</div>
+		</div>
+
+		<div data-ng-repeat="jobRecord in partialCtrl.jobRecords">
+			<div class="row {{jobRecord.fired? 'text-success' : 'text-muted'}}">
+				<div class="col-md-4">{{jobRecord.message}}</div>
+				<div class="col-md-8">{{jobRecord.fired}}</div>
+			</div>
+		</div>
+	</div>
+</div>
