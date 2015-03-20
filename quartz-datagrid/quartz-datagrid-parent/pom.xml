@@ -1,0 +1,63 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.rhc.quartz</groupId>
+    <artifactId>quartz-datagrid</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>quartz-datagrid-parent</artifactId>
+  <name>quartz-datagrid-parent</name>
+  <packaging>pom</packaging>
+  
+  
+   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <javaee.version>6.0</javaee.version>
+    <slf4j.version>1.7.2</slf4j.version>
+    <quartz.version>2.2.1</quartz.version>
+    <infinispan.version>7.1.0.Final</infinispan.version>
+    <version.jdk.min>1.7</version.jdk.min>
+  </properties>
+  <dependencyManagement>
+    <dependencies>
+    <dependency>
+		<groupId>com.rhc.quartz</groupId>  
+		<artifactId>quartz-datagrid-jobstore</artifactId>
+		<version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.infinispan</groupId>
+      <artifactId>infinispan-core</artifactId>
+      <version>${infinispan.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>${javaee.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.quartz-scheduler</groupId>
+      <artifactId>quartz</artifactId>
+      <version>${quartz.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    </dependencies>
+  </dependencyManagement>
+  
+  <build>
+  	<pluginManagement>
+  		<plugins>
+  			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.3.6</version>
+			</plugin>
+  		</plugins>
+  	</pluginManagement>
+  </build>
+</project>
