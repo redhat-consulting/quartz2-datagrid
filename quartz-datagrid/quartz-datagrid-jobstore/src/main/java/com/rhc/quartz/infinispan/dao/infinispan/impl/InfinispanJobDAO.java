@@ -28,7 +28,6 @@ public class InfinispanJobDAO implements JobDAO{
 
 	protected Cache<JobKey, JobWrapper> jobsByKey = null;
 	protected Cache<String, Map<JobKey, JobWrapper>> jobsByGroup = null;
-	protected Cache<String, Set<String>> pausedJobGroups = null;
 	protected Cache<String, Set<JobKey>> blockedJobs = null;
 	 
 	 public InfinispanJobDAO(CacheContainer cacheManager){
@@ -153,25 +152,6 @@ public class InfinispanJobDAO implements JobDAO{
 			return false;
 		}
 		
-		
-
-		public CacheQuery getJobsByPausedStatus(String group, Boolean jobPaused) {
-			if(jobPaused == null) {
-				throw new IllegalArgumentException("Exception");
-			}
-			String pausedVal = Boolean.toString(jobPaused).toLowerCase();
-			
-			// find all
-			QueryBuilder qb = groupSearchManager.buildQueryBuilderForClass(JobWrapper.class).get();
-
-			org.apache.lucene.search.Query luceneQuery =
-					qb.bool()
-					.must(qb.keyword().onField("group.paused").matching(pausedVal).createQuery())
-				    .createQuery();
-			CacheQuery query = groupSearchManager.getQuery(luceneQuery, JobWrapper.class);
-			
-			return query;
-		}
 		
 		protected CacheQuery getJobsByPausedStatus(Boolean jobPaused) {
 			if(jobPaused == null) {
