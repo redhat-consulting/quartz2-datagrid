@@ -4,7 +4,7 @@ import org.quartz.JobKey;
 import org.quartz.TriggerKey;
 import org.quartz.spi.OperableTrigger;
 
-public class TriggerWrapper {
+public class TriggerWrapper{
 
     public final TriggerKey key;
 
