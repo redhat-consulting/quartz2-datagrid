@@ -1,5 +1,6 @@
 package com.rhc.quartz.infinispan;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -10,11 +11,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeSet;
 import java.util.Map.Entry;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
+import org.infinispan.manager.CacheContainer;
+import org.infinispan.manager.DefaultCacheManager;
 import org.quartz.Calendar;
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
@@ -41,9 +43,9 @@ import org.slf4j.LoggerFactory;
 import com.rhc.quartz.infinispan.dao.CalendarDAO;
 import com.rhc.quartz.infinispan.dao.JobDAO;
 import com.rhc.quartz.infinispan.dao.TriggerDAO;
-import com.rhc.quartz.infinispan.dao.impl.HashMapCalendarDAO;
-import com.rhc.quartz.infinispan.dao.impl.HashMapJobDAO;
-import com.rhc.quartz.infinispan.dao.impl.HashMapTriggerDAO;
+import com.rhc.quartz.infinispan.dao.infinispan.impl.InfinispanCalendarDAO;
+import com.rhc.quartz.infinispan.dao.infinispan.impl.InfinispanJobDAO;
+import com.rhc.quartz.infinispan.dao.infinispan.impl.InfinispanTriggerDAO;
 import com.rhc.quartz.infinispan.wrapper.JobWrapper;
 import com.rhc.quartz.infinispan.wrapper.TriggerWrapper;
 
@@ -58,11 +60,18 @@ public class InfinispanJobStore implements JobStore{
 
 	public void initialize(ClassLoadHelper loadHelper,
 			SchedulerSignaler signaler) throws SchedulerConfigException {
-		LOG.info("NOW Executing method initialize");
-		calendarDAO = new HashMapCalendarDAO();
-		jobDAO = new HashMapJobDAO();
-		triggerDAO = new HashMapTriggerDAO();
-		LOG.info("DONE Executing method initialize");
+		LOG.info("Executing method initialize");
+		CacheContainer cacheManager;
+		try {
+			cacheManager = new DefaultCacheManager("cache-config.xml",true);
+		} catch (IOException e) {
+			LOG.error("could not use xml", e);
+			cacheManager = new DefaultCacheManager();
+		}
+		calendarDAO = new InfinispanCalendarDAO(cacheManager);
+		jobDAO = new InfinispanJobDAO(cacheManager);
+		triggerDAO = new InfinispanTriggerDAO(cacheManager);
+		LOG.info("Done Executing method initialize");
         this.signaler = signaler;
 	}
 	

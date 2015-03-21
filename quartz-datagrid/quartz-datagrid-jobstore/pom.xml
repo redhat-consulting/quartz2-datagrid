@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>com.rhc.quartz</groupId>
 		<artifactId>quartz-datagrid-parent</artifactId>
@@ -13,7 +13,7 @@
 	<packaging>bundle</packaging>
 
 	<name>quartz-datagrid-jobstore</name>
-	
+
 	<properties>
 		<quartz.datagrid.jobstore.symbolic.name>${project.groupId}.${project.artifactId}</quartz.datagrid.jobstore.symbolic.name>
 	</properties>
@@ -28,8 +28,13 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.infinispan</groupId>
+			<artifactId>infinispan-core</artifactId>
+		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<plugins>
 			<plugin>
