@@ -1,10 +1,20 @@
 package com.rhc.quartz.infinispan.wrapper;
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.quartz.JobDetail;
 import org.quartz.JobKey;
-
+ 
+@Indexed
 public class JobWrapper {
 
+	@IndexedEmbedded
+	public GroupWrapper group;
+
+	@Field
+	public Boolean blocked = false;
+	
     public JobKey key;
 
     public JobDetail jobDetail;

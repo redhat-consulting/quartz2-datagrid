@@ -26,9 +26,7 @@ public interface JobDAO {
 	Collection<? extends String> getAllGroupNames();
 
 	
-	//its a set
-	boolean addPausedJobGroup(String name);
-	
+	void pauseJobGroup(String name);
 	void unpauseJobGroup(String name);
 	void unpauseAllJobGroups();
 	boolean isBlocked(JobKey jobKey);

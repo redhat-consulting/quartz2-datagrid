@@ -15,8 +15,10 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.infinispan.configuration.cache.Configuration;
 import org.infinispan.manager.CacheContainer;
 import org.infinispan.manager.DefaultCacheManager;
+import org.infinispan.query.SearchManager;
 import org.quartz.Calendar;
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
@@ -144,8 +146,6 @@ public class InfinispanJobStore implements JobStore{
 	                    grpMap = new HashMap<JobKey, JobWrapper>(100);
 	                    jobDAO.addGroup(newJob.getKey().getGroup(), grpMap);
 	                }
-	                // add to jobs by group
-	                grpMap.put(newJob.getKey(), jw);
 	                // add to jobs by FQN map
 	                jobDAO.put(jw.key, jw);
 	            } else {
@@ -775,22 +775,22 @@ public class InfinispanJobStore implements JobStore{
 	public Collection<String> pauseJobs(GroupMatcher<JobKey> matcher)
 			throws JobPersistenceException {
 		LOG.info("Executing method : [pauseJobs]");
-		 List<String> pausedGroups = new LinkedList<String>();
+		
+		//find all jobs by the job key...
+		
+		
+		List<String> pausedGroups = new LinkedList<String>();
 	        synchronized (lock) {
 
 	            StringMatcher.StringOperatorName operator = matcher.getCompareWithOperator();
 	            switch (operator) {
 	                case EQUALS:
-	                    if (jobDAO.addPausedJobGroup(matcher.getCompareToValue())) {
-	                        pausedGroups.add(matcher.getCompareToValue());
-	                    }
+	                    jobDAO.pauseJobGroup(matcher.getCompareToValue());
 	                    break;
 	                default :
 	                    for (String group : jobDAO.getAllGroupNames()) {
 	                        if(operator.evaluate(group, matcher.getCompareToValue())) {
-	                            if (jobDAO.addPausedJobGroup(group)) {
-	                                pausedGroups.add(group);
-	                            }
+	                            jobDAO.pauseJobGroup(group);
 	                        }
 	                    }
 	            }

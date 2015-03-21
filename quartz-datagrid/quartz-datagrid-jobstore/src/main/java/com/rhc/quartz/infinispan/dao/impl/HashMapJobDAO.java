@@ -62,10 +62,10 @@ public class HashMapJobDAO implements JobDAO{
 		return jobsByGroup.keySet();
 	}
 
-	public boolean addPausedJobGroup(String name) {
-		return pausedJobGroups.add(name);
+	public void pauseJobGroup(String name) {
+		pausedJobGroups.add(name);
 	}
-
+	
 	public void unpauseJobGroup(String name) {
 		pausedJobGroups.remove(name);
 	}
